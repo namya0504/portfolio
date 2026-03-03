@@ -16,8 +16,17 @@
 
   <!-- Main Stylesheet -->
   <link rel="stylesheet" href="style.css" />
+
+  <!-- EmailJS SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
+
+  <!-- Scroll Progress Bar -->
+  <div id="scroll-progress"></div>
+
+  <!-- Toast Container -->
+  <div id="toast-container" aria-live="polite"></div>
 
   <!-- ============================================================
        PRELOADER
@@ -47,6 +56,9 @@
       </div>
     </div>
   </div>
+
+  <!-- Mobile Nav Overlay -->
+  <div id="nav-overlay" class="nav-overlay"></div>
 
   <!-- ============================================================
        NAVIGATION
@@ -88,7 +100,7 @@
         <span class="fira role-prefix">const role = "</span><span class="typed-text" id="typed-text"></span><span class="fira role-suffix">";</span>
       </div>
       <p class="hero-bio animate-fade-up delay-3">
-        Diploma Engineer &amp; AI Enthusiast from <span class="accent-green">Ahmedabad, Gujarat</span> — crafting intelligent solutions and building the future, one line of code at a time.
+        Diploma Engineer &amp; AI Enthusiast from <span class="accent-green">Surat, Gujarat</span> — crafting intelligent solutions and building the future, one line of code at a time.
       </p>
       <div class="hero-cta animate-fade-up delay-4">
         <a href="#projects" class="btn btn-primary">
@@ -99,6 +111,9 @@
         </a>
         <a href="https://github.com/namya0504" target="_blank" class="btn btn-ghost">
           <i class="fab fa-github"></i> GitHub
+        </a>
+        <a href="#" class="btn btn-ghost btn-cv" id="download-cv" download>
+          <i class="fas fa-file-download"></i> Download CV
         </a>
       </div>
       <div class="hero-stats animate-fade-up delay-5">
@@ -152,7 +167,7 @@
         <div class="about-contact-info">
           <div class="info-item">
             <i class="fas fa-map-marker-alt accent-green"></i>
-            <span>Ahmedabad, Gujarat, India</span>
+            <span>Surat, Gujarat, India</span>
           </div>
           <div class="info-item">
             <i class="fas fa-envelope accent-blue"></i>
@@ -222,7 +237,7 @@
             <div class="timeline-card-header">
               <div>
                 <h3 class="timeline-degree">Diploma in Engineering</h3>
-                <p class="timeline-branch accent-green">Computer Engineering</p>
+                <p class="timeline-branch accent-green">Information Technology</p>
               </div>
               <span class="timeline-badge active-badge">Current</span>
             </div>
@@ -256,7 +271,7 @@
               <span class="timeline-badge completed-badge">Completed</span>
             </div>
             <div class="timeline-meta">
-              <span><i class="fas fa-map-marker-alt"></i> Gujarat Board, Ahmedabad</span>
+              <span><i class="fas fa-map-marker-alt"></i> Gujarat Board, Surat</span>
               <span><i class="fas fa-calendar-alt"></i> Completed</span>
             </div>
             <p class="timeline-desc">
@@ -423,10 +438,20 @@
       <div class="section-divider"></div>
       <p class="section-subtitle">Things I've built that I'm proud of</p>
     </div>
-    <div class="container projects-grid">
+    <div class="container">
+      <div class="project-filter reveal" id="project-filter">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="python">Python</button>
+        <button class="filter-btn" data-filter="ai">AI / ML</button>
+        <button class="filter-btn" data-filter="web">Web</button>
+        <button class="filter-btn" data-filter="java">Java</button>
+        <button class="filter-btn" data-filter="aws">AWS</button>
+      </div>
+    </div>
+    <div class="container projects-grid" id="projects-grid">
 
       <!-- Project 1 -->
-      <div class="project-card glass-card tilt-card reveal scale-in">
+      <div class="project-card glass-card tilt-card reveal scale-in" data-tags="web html css javascript">
         <div class="project-card-inner">
           <div class="project-header">
             <div class="project-icon" style="--icon-color: #00ff88;">
@@ -450,7 +475,7 @@
       </div>
 
       <!-- Project 2 -->
-      <div class="project-card glass-card tilt-card reveal scale-in delay-1">
+      <div class="project-card glass-card tilt-card reveal scale-in delay-1" data-tags="python ai innovation">
         <div class="project-card-inner">
           <div class="project-header">
             <div class="project-icon" style="--icon-color: #3b82f6;">
@@ -474,7 +499,7 @@
       </div>
 
       <!-- Project 3 -->
-      <div class="project-card glass-card tilt-card reveal scale-in delay-2">
+      <div class="project-card glass-card tilt-card reveal scale-in delay-2" data-tags="python ai nlp">
         <div class="project-card-inner">
           <div class="project-header">
             <div class="project-icon" style="--icon-color: #8b5cf6;">
@@ -498,7 +523,7 @@
       </div>
 
       <!-- Project 4 -->
-      <div class="project-card glass-card tilt-card reveal scale-in delay-1">
+      <div class="project-card glass-card tilt-card reveal scale-in delay-1" data-tags="python ai data">
         <div class="project-card-inner">
           <div class="project-header">
             <div class="project-icon" style="--icon-color: #f59e0b;">
@@ -522,7 +547,7 @@
       </div>
 
       <!-- Project 5 -->
-      <div class="project-card glass-card tilt-card reveal scale-in delay-2">
+      <div class="project-card glass-card tilt-card reveal scale-in delay-2" data-tags="java oop">
         <div class="project-card-inner">
           <div class="project-header">
             <div class="project-icon" style="--icon-color: #ef4444;">
@@ -546,7 +571,7 @@
       </div>
 
       <!-- Project 6 -->
-      <div class="project-card glass-card tilt-card reveal scale-in delay-3">
+      <div class="project-card glass-card tilt-card reveal scale-in delay-3" data-tags="python aws ai ml">
         <div class="project-card-inner">
           <div class="project-header">
             <div class="project-icon" style="--icon-color: #06b6d4;">
@@ -751,12 +776,15 @@
         <p class="contact-subtext">I'm currently open to new opportunities, collaborations, and interesting conversations. Feel free to reach out!</p>
 
         <div class="contact-links">
-          <a href="mailto:dnamya87@email.com" class="contact-link-item">
+          <a href="mailto:dnamya87@email.com" class="contact-link-item" id="email-copy-link" data-copy="dnamya87@email.com" title="Click email or copy">
             <div class="contact-link-icon" style="--lc: var(--accent-green)"><i class="fas fa-envelope"></i></div>
-            <div>
+            <div class="cl-text">
               <span class="cl-label">Email</span>
               <span class="cl-value">dnamya87@email.com</span>
             </div>
+            <button class="copy-email-btn" title="Copy email" aria-label="Copy email address" onclick="event.preventDefault();event.stopPropagation();">
+              <i class="fas fa-copy"></i>
+            </button>
           </a>
           <a href="https://github.com/namya0504" target="_blank" class="contact-link-item">
             <div class="contact-link-icon" style="--lc: var(--accent-purple)"><i class="fab fa-github"></i></div>
@@ -776,7 +804,7 @@
             <div class="contact-link-icon" style="--lc: #f59e0b"><i class="fas fa-map-marker-alt"></i></div>
             <div>
               <span class="cl-label">Location</span>
-              <span class="cl-value">Ahmedabad, Gujarat, India</span>
+              <span class="cl-value">Surat, Gujarat, India</span>
             </div>
           </div>
         </div>
@@ -791,7 +819,7 @@
       <div class="contact-form-wrap reveal slide-right">
         <div class="form-card glass-card">
           <h3 class="form-title"><i class="fas fa-comment-dots accent-green"></i> Send a Message</h3>
-          <p class="form-demo-note"><i class="fas fa-info-circle"></i> This form is for demo purposes. Messages are not actually sent.</p>
+          <p class="form-emailjs-note"><i class="fas fa-bolt accent-green"></i> Powered by <strong>EmailJS</strong> — messages go directly to my inbox.</p>
           <form id="contact-form" novalidate>
             <div class="form-row">
               <div class="form-group">
@@ -809,6 +837,13 @@
                   <input type="email" id="femail" name="femail" placeholder="john@example.com" required autocomplete="email" />
                 </div>
                 <span class="form-error" id="femail-error"></span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="fsubject">Subject</label>
+              <div class="input-wrap">
+                <i class="fas fa-tag"></i>
+                <input type="text" id="fsubject" name="fsubject" placeholder="Project collaboration, question..." />
               </div>
             </div>
             <div class="form-group">
@@ -891,5 +926,6 @@
 
   <!-- Main Script -->
   <script src="script.js"></script>
+
 </body>
 </html>

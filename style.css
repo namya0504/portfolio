@@ -1573,3 +1573,234 @@ body.no-scroll { overflow: hidden; }
   .form-card { padding: 24px; }
   #back-to-top { bottom: 20px; right: 20px; }
 }
+
+/* ============================================================
+   SCROLL PROGRESS BAR
+============================================================ */
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent-green), var(--accent-blue), var(--accent-purple));
+  z-index: 10001;
+  transition: width 0.08s linear;
+  box-shadow: 0 0 8px rgba(0,255,136,0.5);
+}
+
+/* ============================================================
+   TOAST NOTIFICATIONS
+============================================================ */
+#toast-container {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  pointer-events: none;
+}
+.toast {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 22px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  pointer-events: all;
+  animation: toastIn 0.4s cubic-bezier(0.34,1.56,0.64,1) forwards;
+  max-width: 380px;
+  text-align: left;
+}
+.toast.hiding { animation: toastOut 0.35s ease forwards; }
+.toast-success {
+  background: rgba(0,255,136,0.12);
+  border-color: rgba(0,255,136,0.35);
+}
+.toast-success i { color: var(--accent-green); font-size: 18px; }
+.toast-error {
+  background: rgba(239,68,68,0.12);
+  border-color: rgba(239,68,68,0.35);
+}
+.toast-error i { color: #ef4444; font-size: 18px; }
+.toast-info {
+  background: rgba(59,130,246,0.12);
+  border-color: rgba(59,130,246,0.35);
+}
+.toast-info i { color: var(--accent-blue); font-size: 18px; }
+@keyframes toastIn {
+  from { opacity:0; transform: translateY(20px) scale(0.9); }
+  to   { opacity:1; transform: translateY(0) scale(1); }
+}
+@keyframes toastOut {
+  from { opacity:1; transform: translateY(0) scale(1); }
+  to   { opacity:0; transform: translateY(10px) scale(0.95); }
+}
+
+/* ============================================================
+   PROJECT FILTER
+============================================================ */
+.project-filter {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 48px;
+}
+.filter-btn {
+  padding: 8px 20px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1.5px solid var(--border-color);
+  background: transparent;
+  color: var(--text-muted);
+  transition: var(--transition);
+  font-family: 'Fira Code', monospace;
+  letter-spacing: 0.3px;
+}
+.filter-btn:hover {
+  border-color: rgba(0,255,136,0.4);
+  color: var(--accent-green);
+  background: rgba(0,255,136,0.05);
+}
+.filter-btn.active {
+  background: rgba(0,255,136,0.12);
+  border-color: rgba(0,255,136,0.5);
+  color: var(--accent-green);
+  box-shadow: 0 0 12px rgba(0,255,136,0.15);
+}
+.project-card.hidden {
+  display: none;
+}
+.project-card.filter-fade-in {
+  animation: fadeUp 0.4s ease forwards;
+}
+
+/* ============================================================
+   CUSTOM CURSOR
+============================================================ */
+#cursor-dot {
+  position: fixed;
+  pointer-events: none;
+  z-index: 99999;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-green);
+  transform: translate(-50%, -50%);
+  transition: transform 0.05s linear, opacity 0.3s;
+  box-shadow: 0 0 6px rgba(0,255,136,0.8);
+}
+#cursor-ring {
+  position: fixed;
+  pointer-events: none;
+  z-index: 99998;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(0,255,136,0.5);
+  transform: translate(-50%, -50%);
+  transition: width 0.25s ease, height 0.25s ease, border-color 0.25s, transform 0.12s ease;
+}
+#cursor-ring.hovering {
+  width: 52px;
+  height: 52px;
+  border-color: rgba(0,255,136,0.8);
+  background: rgba(0,255,136,0.04);
+}
+@media (pointer: coarse) {
+  #cursor-dot, #cursor-ring { display: none; }
+}
+
+/* ============================================================
+   COPY EMAIL BUTTON
+============================================================ */
+.copy-email-btn {
+  margin-left: auto;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-subtle);
+  border-radius: 6px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 13px;
+  transition: var(--transition);
+  flex-shrink: 0;
+}
+.copy-email-btn:hover {
+  border-color: var(--accent-green);
+  color: var(--accent-green);
+  background: rgba(0,255,136,0.08);
+}
+.copy-email-btn.copied {
+  border-color: var(--accent-green);
+  color: var(--accent-green);
+  background: rgba(0,255,136,0.12);
+}
+.cl-text { display: flex; flex-direction: column; }
+
+/* ============================================================
+   EMAILJS FORM NOTE
+============================================================ */
+.form-emailjs-note {
+  font-size: 12px;
+  color: var(--text-muted);
+  background: rgba(0,255,136,0.05);
+  border: 1px solid rgba(0,255,136,0.15);
+  border-radius: 6px;
+  padding: 8px 12px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.form-emailjs-note strong { color: var(--accent-green); }
+
+/* ============================================================
+   DOWNLOAD CV BUTTON
+============================================================ */
+.btn-cv {
+  color: #f59e0b !important;
+  border-color: rgba(245,158,11,0.4) !important;
+}
+.btn-cv:hover {
+  background: rgba(245,158,11,0.1) !important;
+  border-color: rgba(245,158,11,0.7) !important;
+  color: #f59e0b !important;
+  box-shadow: 0 8px 25px rgba(245,158,11,0.2) !important;
+}
+
+/* ============================================================
+   MOBILE NAV OVERLAY
+============================================================ */
+.nav-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 998;
+  backdrop-filter: blur(2px);
+}
+.nav-overlay.visible { display: block; }
+
+@media (max-width: 768px) {
+  .project-filter { gap: 8px; }
+  .filter-btn { padding: 6px 14px; font-size: 12px; }
+  #cursor-dot, #cursor-ring { display: none; }
+}

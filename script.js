@@ -19,6 +19,19 @@ const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-
 const MATRIX_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%^&*(){}[]<>/\\|+-=';
 
 /* ============================================================
+   EMAILJS CONFIGURATION
+   Setup steps:
+   1. Sign up FREE at https://www.emailjs.com
+   2. Connect an Email Service (Gmail, Outlook, etc.)
+   3. Create a Template using these variables:
+      {{from_name}}  {{from_email}}  {{fsubject}}  {{message}}  {{rating}}
+   4. Paste your credentials below and save.
+============================================================ */
+const EMAILJS_SERVICE_ID  = 'YOUR_SERVICE_ID';   // e.g. 'service_abc123'
+const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';  // e.g. 'template_xyz789'
+const EMAILJS_PUBLIC_KEY  = 'YOUR_PUBLIC_KEY';   // e.g. 'AbCdEfGhIjKlMnOp'
+
+/* ============================================================
    MATRIX RAIN (preloader background)
 ============================================================ */
 function initMatrixRain() {
@@ -290,9 +303,7 @@ function initNavbar() {
       e.preventDefault();
       const target = qs(link.getAttribute('href'));
       if (target) {
-        navList.classList.remove('open');
-        ham.classList.remove('open');
-        document.body.classList.remove('no-scroll');
+        closeMenu();
         const top = target.getBoundingClientRect().top + window.scrollY - 68;
         window.scrollTo({ top, behavior: 'smooth' });
       }
@@ -300,16 +311,27 @@ function initNavbar() {
   });
 
   /* Hamburger */
+  const overlay = qs('#nav-overlay');
+  function closeMenu() {
+    ham.classList.remove('open');
+    navList.classList.remove('open');
+    if (overlay) overlay.classList.remove('visible');
+    document.body.classList.remove('no-scroll');
+  }
   ham.addEventListener('click', () => {
     ham.classList.toggle('open');
     navList.classList.toggle('open');
+    if (overlay) overlay.classList.toggle('visible');
+    document.body.classList.toggle('no-scroll');
   });
+
+  /* Close on overlay click */
+  if (overlay) overlay.addEventListener('click', closeMenu);
 
   /* Close on outside click */
   document.addEventListener('click', e => {
     if (!navbar.contains(e.target) && navList.classList.contains('open')) {
-      navList.classList.remove('open');
-      ham.classList.remove('open');
+      closeMenu();
     }
   });
 }
@@ -476,7 +498,7 @@ function initTilt() {
 }
 
 /* ============================================================
-   CONTACT FORM
+   CONTACT FORM (powered by EmailJS)
 ============================================================ */
 function initContactForm() {
   const form      = qs('#contact-form');
@@ -485,6 +507,11 @@ function initContactForm() {
   const resetBtn  = qs('#reset-form');
 
   if (!form) return;
+
+  /* Initialise EmailJS once */
+  if (typeof emailjs !== 'undefined' && EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY') {
+    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+  }
 
   function showError(fieldId, msg) {
     const el = qs('#' + fieldId + '-error');
@@ -522,10 +549,9 @@ function initContactForm() {
       showError('fname', 'Name must be at least 2 characters.'); valid = false;
     } else clearError('fname');
 
-    const emailReg = EMAIL_REGEX;
     if (!email) {
       showError('femail', 'Please enter your email.'); valid = false;
-    } else if (!emailReg.test(email)) {
+    } else if (!EMAIL_REGEX.test(email)) {
       showError('femail', 'Please enter a valid email address.'); valid = false;
     } else clearError('femail');
 
@@ -538,23 +564,57 @@ function initContactForm() {
     return valid;
   }
 
+  function setLoading(on) {
+    const btnText    = qs('.btn-text', submitBtn);
+    const btnLoading = qs('.btn-loading', submitBtn);
+    if (btnText)    btnText.style.display    = on ? 'none' : 'inline-flex';
+    if (btnLoading) btnLoading.style.display = on ? 'inline-flex' : 'none';
+    submitBtn.disabled = on;
+  }
+
   form.addEventListener('submit', e => {
     e.preventDefault();
     if (!validateForm()) return;
+    setLoading(true);
 
-    /* NOTE: Form submission is simulated (demo-only).
-       To enable real submission, replace the setTimeout below with
-       a fetch() call to your backend endpoint or a service like Formspree. */
-    const btnText    = qs('.btn-text', submitBtn);
-    const btnLoading = qs('.btn-loading', submitBtn);
-    if (btnText)    btnText.style.display    = 'none';
-    if (btnLoading) btnLoading.style.display = 'inline-flex';
-    submitBtn.disabled = true;
+    /* Get star rating value */
+    const ratingInput = qs('input[name="rating"]:checked');
+    const ratingVal   = ratingInput ? ratingInput.value + ' ★' : 'Not rated';
 
-    setTimeout(() => {
-      form.style.display       = 'none';
-      if (thankYou) thankYou.style.display = 'block';
-    }, 1600);
+    /* Collect template params manually so the rating is included */
+    const templateParams = {
+      from_name:  qs('#fname').value.trim(),
+      from_email: qs('#femail').value.trim(),
+      fsubject:   (qs('#fsubject') ? qs('#fsubject').value.trim() : '') || 'Portfolio Contact',
+      message:    qs('#fmessage').value.trim(),
+      rating:     ratingVal,
+    };
+
+    /* Check if EmailJS is configured */
+    if (typeof emailjs === 'undefined' || EMAILJS_SERVICE_ID === 'YOUR_SERVICE_ID') {
+      /* Not configured — show helpful toast and still show thank-you */
+      setTimeout(() => {
+        setLoading(false);
+        form.style.display  = 'none';
+        if (thankYou) thankYou.style.display = 'block';
+        showToast('info', 'Demo mode: Configure EmailJS credentials in script.js to send real emails.');
+      }, 900);
+      return;
+    }
+
+    emailjs
+      .send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
+      .then(() => {
+        setLoading(false);
+        form.style.display  = 'none';
+        if (thankYou) thankYou.style.display = 'block';
+        showToast('success', 'Message sent! I\'ll get back to you soon. 🚀');
+      })
+      .catch(err => {
+        setLoading(false);
+        console.error('EmailJS error:', err);
+        showToast('error', 'Failed to send message. Please try emailing me directly.');
+      });
   });
 
   if (resetBtn) {
@@ -562,13 +622,7 @@ function initContactForm() {
       form.reset();
       form.style.display       = 'block';
       if (thankYou) thankYou.style.display = 'none';
-      if (submitBtn) {
-        submitBtn.disabled = false;
-        const btnText    = qs('.btn-text', submitBtn);
-        const btnLoading = qs('.btn-loading', submitBtn);
-        if (btnText)    btnText.style.display    = 'inline-flex';
-        if (btnLoading) btnLoading.style.display = 'none';
-      }
+      setLoading(false);
     });
   }
 }
@@ -664,24 +718,154 @@ function initParallax() {
 }
 
 /* ============================================================
-   CURSOR GLOW (desktop)
+   CUSTOM CURSOR (desktop) — dot + smooth ring
 ============================================================ */
 function initCursorGlow() {
   if (window.matchMedia('(pointer: coarse)').matches) return;
+
+  const dot  = document.createElement('div');
+  const ring = document.createElement('div');
+  dot.id  = 'cursor-dot';
+  ring.id = 'cursor-ring';
+  dot.setAttribute('aria-hidden', 'true');
+  ring.setAttribute('aria-hidden', 'true');
+  document.body.appendChild(dot);
+  document.body.appendChild(ring);
+
+  let mx = -100, my = -100, rx = -100, ry = -100;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX;
+    my = e.clientY;
+    dot.style.left = mx + 'px';
+    dot.style.top  = my + 'px';
+  });
+
+  /* Ring follows with slight lag */
+  (function animRing() {
+    rx += (mx - rx) * 0.14;
+    ry += (my - ry) * 0.14;
+    ring.style.left = rx + 'px';
+    ring.style.top  = ry + 'px';
+    requestAnimationFrame(animRing);
+  })();
+
+  /* Grow ring on interactive elements */
+  const hoverTargets = 'a, button, .tilt-card, .filter-btn, .nav-link, .social-btn, .cert-card, .contact-link-item';
+  document.querySelectorAll(hoverTargets).forEach(() => {});
+  document.addEventListener('mouseover', e => {
+    if (e.target.closest('a, button, .tilt-card, .filter-btn, .contact-link-item')) {
+      ring.classList.add('hovering');
+    }
+  });
+  document.addEventListener('mouseout', e => {
+    if (e.target.closest('a, button, .tilt-card, .filter-btn, .contact-link-item')) {
+      ring.classList.remove('hovering');
+    }
+  });
+
+  /* Ambient background glow */
   const glow = document.createElement('div');
   glow.setAttribute('aria-hidden', 'true');
   glow.style.cssText = `
-    position:fixed; pointer-events:none; z-index:9998;
-    width:300px; height:300px; border-radius:50%;
-    background:radial-gradient(circle, rgba(0,255,136,0.04) 0%, transparent 70%);
+    position:fixed; pointer-events:none; z-index:9997;
+    width:350px; height:350px; border-radius:50%;
+    background:radial-gradient(circle, rgba(0,255,136,0.035) 0%, transparent 70%);
     transform:translate(-50%,-50%);
-    transition:transform 0.1s linear;
-    top:0; left:0;
+    top:0; left:0; transition: left 0.15s, top 0.15s;
   `;
   document.body.appendChild(glow);
   document.addEventListener('mousemove', e => {
     glow.style.left = e.clientX + 'px';
     glow.style.top  = e.clientY + 'px';
+  });
+}
+
+/* ============================================================
+   TOAST NOTIFICATION SYSTEM
+============================================================ */
+function showToast(type = 'info', message = '', duration = 4500) {
+  const container = qs('#toast-container');
+  if (!container) return;
+
+  const icons = { success: 'fa-check-circle', error: 'fa-times-circle', info: 'fa-info-circle' };
+  const toast  = document.createElement('div');
+  toast.className = `toast toast-${type}`;
+  toast.innerHTML = `<i class="fas ${icons[type] || icons.info}"></i><span>${message}</span>`;
+  container.appendChild(toast);
+
+  const dismiss = () => {
+    toast.classList.add('hiding');
+    setTimeout(() => toast.remove(), 400);
+  };
+  toast.addEventListener('click', dismiss);
+  setTimeout(dismiss, duration);
+}
+
+/* ============================================================
+   SCROLL PROGRESS BAR
+============================================================ */
+function initScrollProgress() {
+  const bar = qs('#scroll-progress');
+  if (!bar) return;
+  window.addEventListener('scroll', () => {
+    const total  = document.documentElement.scrollHeight - window.innerHeight;
+    const pct    = total > 0 ? (window.scrollY / total) * 100 : 0;
+    bar.style.width = pct + '%';
+  }, { passive: true });
+}
+
+/* ============================================================
+   PROJECT FILTER
+============================================================ */
+function initProjectFilter() {
+  const filter   = qs('#project-filter');
+  const cards    = qsa('#projects-grid .project-card');
+  if (!filter || !cards.length) return;
+
+  filter.addEventListener('click', e => {
+    const btn = e.target.closest('.filter-btn');
+    if (!btn) return;
+
+    qsa('.filter-btn', filter).forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const tag = btn.dataset.filter;
+    cards.forEach(card => {
+      const tags = (card.dataset.tags || '').split(' ');
+      const show = tag === 'all' || tags.some(t => t.includes(tag));
+      if (show) {
+        card.classList.remove('hidden');
+        card.classList.add('filter-fade-in');
+        setTimeout(() => card.classList.remove('filter-fade-in'), 500);
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+  });
+}
+
+/* ============================================================
+   COPY EMAIL TO CLIPBOARD
+============================================================ */
+function initCopyEmail() {
+  const btn = qs('.copy-email-btn');
+  if (!btn) return;
+  btn.addEventListener('click', e => {
+    e.preventDefault();
+    e.stopPropagation();
+    const email = qs('#email-copy-link')?.dataset.copy || 'dnamya87@email.com';
+    navigator.clipboard.writeText(email).then(() => {
+      btn.innerHTML = '<i class="fas fa-check"></i>';
+      btn.classList.add('copied');
+      showToast('success', 'Email address copied to clipboard!');
+      setTimeout(() => {
+        btn.innerHTML = '<i class="fas fa-copy"></i>';
+        btn.classList.remove('copied');
+      }, 2000);
+    }).catch(() => {
+      showToast('error', 'Could not copy — please copy manually.');
+    });
   });
 }
 
@@ -706,6 +890,9 @@ document.addEventListener('DOMContentLoaded', () => {
   initLogoClick();
   initParallax();
   initCursorGlow();
+  initScrollProgress();
+  initProjectFilter();
+  initCopyEmail();
   setYear();
 });
 
