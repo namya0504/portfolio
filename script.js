@@ -12,7 +12,10 @@
 const qs  = (s, el = document) => el.querySelector(s);
 const qsa = (s, el = document) => [...el.querySelectorAll(s)];
 
-/* Matrix rain character set */
+/* ============================================================
+   EMAIL VALIDATION REGEX (RFC-5322 simplified)
+============================================================ */
+const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*\.[a-zA-Z]{2,}$/;
 const MATRIX_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%^&*(){}[]<>/\\|+-=';
 
 /* ============================================================
@@ -519,7 +522,7 @@ function initContactForm() {
       showError('fname', 'Name must be at least 2 characters.'); valid = false;
     } else clearError('fname');
 
-    const emailReg = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*\.[a-zA-Z]{2,}$/;
+    const emailReg = EMAIL_REGEX;
     if (!email) {
       showError('femail', 'Please enter your email.'); valid = false;
     } else if (!emailReg.test(email)) {
@@ -666,6 +669,7 @@ function initParallax() {
 function initCursorGlow() {
   if (window.matchMedia('(pointer: coarse)').matches) return;
   const glow = document.createElement('div');
+  glow.setAttribute('aria-hidden', 'true');
   glow.style.cssText = `
     position:fixed; pointer-events:none; z-index:9998;
     width:300px; height:300px; border-radius:50%;

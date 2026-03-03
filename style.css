@@ -939,7 +939,6 @@ body.no-scroll { overflow: hidden; }
 }
 .project-card:hover .project-icon {
   background: rgba(255,255,255,0.08);
-  box-shadow: 0 0 20px rgba(0,255,136,0.3);
   box-shadow: 0 0 20px color-mix(in srgb, var(--icon-color, #00ff88) 30%, transparent);
 }
 .project-links {
@@ -1060,9 +1059,7 @@ body.no-scroll { overflow: hidden; }
   justify-content: center;
   font-size: 24px;
   color: var(--ach-color, var(--accent-green));
-  background: rgba(0,255,136,0.08);
   background: color-mix(in srgb, var(--ach-color, #00ff88) 12%, transparent);
-  border: 1px solid rgba(0,255,136,0.2);
   border: 1px solid color-mix(in srgb, var(--ach-color, #00ff88) 25%, transparent);
 }
 .ach-content h3 {
@@ -1243,9 +1240,7 @@ body.no-scroll { overflow: hidden; }
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0,255,136,0.08);
   background: color-mix(in srgb, var(--lc, #00ff88) 12%, transparent);
-  border: 1px solid rgba(0,255,136,0.2);
   border: 1px solid color-mix(in srgb, var(--lc, #00ff88) 25%, transparent);
   color: var(--lc);
   flex-shrink: 0;
@@ -1288,6 +1283,18 @@ body.no-scroll { overflow: hidden; }
   display: flex;
   align-items: center;
   gap: 10px;
+}
+.form-demo-note {
+  font-size: 12px;
+  color: var(--text-subtle);
+  background: rgba(59,130,246,0.08);
+  border: 1px solid rgba(59,130,246,0.2);
+  border-radius: 6px;
+  padding: 8px 12px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 .form-row {
   display: grid;
