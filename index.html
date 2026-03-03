@@ -1,91 +1,894 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Namya Shah | Resume</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Namya Shah – Diploma Engineer, AI Enthusiast & Developer from Ahmedabad, Gujarat." />
+  <title>Namya Shah | Portfolio</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
+  <!-- ============================================================
+       PRELOADER
+  ============================================================ -->
+  <div id="preloader">
+    <canvas id="matrix-canvas"></canvas>
+    <div class="preloader-content">
+      <div class="preloader-terminal">
+        <div class="terminal-header">
+          <span class="t-dot red"></span>
+          <span class="t-dot yellow"></span>
+          <span class="t-dot green"></span>
+          <span class="terminal-title">namya_portfolio.sh</span>
+        </div>
+        <div class="terminal-body">
+          <div class="terminal-line"><span class="t-prompt">$</span> <span class="t-cmd" id="cmd1"></span></div>
+          <div class="terminal-line"><span class="t-prompt">$</span> <span class="t-cmd" id="cmd2"></span></div>
+          <div class="terminal-line"><span class="t-prompt">$</span> <span class="t-cmd" id="cmd3"></span></div>
+          <div class="terminal-line"><span class="t-prompt">$</span> <span class="t-cmd" id="cmd4"></span></div>
+          <div class="terminal-line t-output" id="output-line"></div>
+          <div class="terminal-cursor"></div>
+        </div>
+      </div>
+      <div class="preloader-name">NAMYA SHAH</div>
+      <div class="preloader-progress">
+        <div class="preloader-bar" id="preloader-bar"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       NAVIGATION
+  ============================================================ -->
+  <nav id="navbar">
+    <div class="nav-container">
+      <a href="#home" class="nav-logo">
+        <span class="logo-bracket">&lt;</span>NS<span class="logo-bracket">/&gt;</span>
+      </a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#home" class="nav-link active">Home</a></li>
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#education" class="nav-link">Education</a></li>
+        <li><a href="#skills" class="nav-link">Skills</a></li>
+        <li><a href="#projects" class="nav-link">Projects</a></li>
+        <li><a href="#achievements" class="nav-link">Achievements</a></li>
+        <li><a href="#certificates" class="nav-link">Certificates</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ============================================================
+       HERO SECTION
+  ============================================================ -->
+  <section id="home" class="hero">
+    <canvas id="particle-canvas"></canvas>
+    <div class="hero-content">
+      <div class="hero-greeting animate-fade-up">
+        <span class="fira">&lt;!-- Hello, World! --&gt;</span>
+      </div>
+      <h1 class="hero-name animate-fade-up delay-1">
+        I'm <span class="gradient-text">Namya Shah</span>
+      </h1>
+      <div class="hero-role animate-fade-up delay-2">
+        <span class="fira role-prefix">const role = "</span><span class="typed-text" id="typed-text"></span><span class="fira role-suffix">";</span>
+      </div>
+      <p class="hero-bio animate-fade-up delay-3">
+        Diploma Engineer &amp; AI Enthusiast from <span class="accent-green">Ahmedabad, Gujarat</span> — crafting intelligent solutions and building the future, one line of code at a time.
+      </p>
+      <div class="hero-cta animate-fade-up delay-4">
+        <a href="#projects" class="btn btn-primary">
+          <i class="fas fa-code"></i> View Projects
+        </a>
+        <a href="#contact" class="btn btn-secondary">
+          <i class="fas fa-paper-plane"></i> Contact Me
+        </a>
+        <a href="https://github.com/namya0504" target="_blank" class="btn btn-ghost">
+          <i class="fab fa-github"></i> GitHub
+        </a>
+      </div>
+      <div class="hero-stats animate-fade-up delay-5">
+        <div class="stat-item">
+          <span class="stat-num accent-green">6+</span>
+          <span class="stat-label">Projects</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-num accent-blue">3</span>
+          <span class="stat-label">Certifications</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-num accent-purple">1st</span>
+          <span class="stat-label">Rank Won</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-scroll-hint">
+      <span>Scroll Down</span>
+      <i class="fas fa-chevron-down bounce"></i>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       ABOUT SECTION
+  ============================================================ -->
+  <section id="about" class="section section-alt">
+    <div class="section-header reveal">
+      <span class="section-tag fira">/* === ABOUT ME === */</span>
+      <h2 class="section-title">About <span class="gradient-text">Me</span></h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="container about-grid">
+      <div class="about-left reveal slide-left">
+        <div class="about-avatar-wrapper">
+          <div class="about-avatar">
+            <div class="avatar-inner">
+              <i class="fas fa-user-astronaut fa-4x"></i>
+            </div>
+            <div class="avatar-ring ring1"></div>
+            <div class="avatar-ring ring2"></div>
+            <div class="avatar-ring ring3"></div>
+          </div>
+          <div class="about-badge badge-1"><i class="fab fa-python"></i> Python</div>
+          <div class="about-badge badge-2"><i class="fas fa-brain"></i> AI/ML</div>
+          <div class="about-badge badge-3"><i class="fab fa-java"></i> Java</div>
+          <div class="about-badge badge-4"><i class="fab fa-git-alt"></i> Git</div>
+        </div>
+        <div class="about-contact-info">
+          <div class="info-item">
+            <i class="fas fa-map-marker-alt accent-green"></i>
+            <span>Ahmedabad, Gujarat, India</span>
+          </div>
+          <div class="info-item">
+            <i class="fas fa-envelope accent-blue"></i>
+            <a href="mailto:dnamya87@email.com">dnamya87@email.com</a>
+          </div>
+          <div class="info-item">
+            <i class="fab fa-github accent-purple"></i>
+            <a href="https://github.com/namya0504" target="_blank">github.com/namya0504</a>
+          </div>
+          <div class="info-item">
+            <i class="fab fa-linkedin accent-green"></i>
+            <a href="https://www.linkedin.com/in/namya-shah-b9346937a" target="_blank">LinkedIn Profile</a>
+          </div>
+        </div>
+      </div>
+      <div class="about-right reveal slide-right">
+        <div class="about-code-block fira">
+          <span class="code-comment">// Who I am</span><br/>
+          <span class="code-keyword">const</span> <span class="code-var">namya</span> = {<br/>
+          &nbsp;&nbsp;<span class="code-prop">name</span>: <span class="code-string">"Namya Shah"</span>,<br/>
+          &nbsp;&nbsp;<span class="code-prop">role</span>: <span class="code-string">"Diploma Engineer & AI Enthusiast"</span>,<br/>
+          &nbsp;&nbsp;<span class="code-prop">passion</span>: [<span class="code-string">"AI"</span>, <span class="code-string">"Development"</span>, <span class="code-string">"Innovation"</span>],<br/>
+          &nbsp;&nbsp;<span class="code-prop">status</span>: <span class="code-string">"Currently Pursuing Diploma (Sem 4)"</span><br/>
+          };
+        </div>
+        <h3 class="about-subtitle">Motivated Engineer, Lifelong Learner</h3>
+        <p class="about-bio">
+          I'm a passionate Diploma Engineering student at Government Polytechnic College, Gujarat,
+          currently in Semester 4. My journey in tech is driven by a deep curiosity for
+          <span class="accent-green">Artificial Intelligence</span> and software development.
+        </p>
+        <p class="about-bio">
+          I love building projects that solve real-world problems, and I've been exploring
+          <span class="accent-blue">Amazon SageMaker</span> for ML model development. I thrive on
+          learning new technologies, participating in technical events, and collaborating with
+          teams to bring innovative ideas to life.
+        </p>
+        <div class="about-traits">
+          <div class="trait-badge"><i class="fas fa-lightbulb"></i> Analytical Thinker</div>
+          <div class="trait-badge"><i class="fas fa-puzzle-piece"></i> Problem Solver</div>
+          <div class="trait-badge"><i class="fas fa-users"></i> Team Player</div>
+          <div class="trait-badge"><i class="fas fa-chart-line"></i> Goal Oriented</div>
+          <div class="trait-badge"><i class="fas fa-microphone"></i> Presenter</div>
+          <div class="trait-badge"><i class="fas fa-cogs"></i> Detail Oriented</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       EDUCATION SECTION
+  ============================================================ -->
+  <section id="education" class="section">
+    <div class="section-header reveal">
+      <span class="section-tag fira">/* === EDUCATION === */</span>
+      <h2 class="section-title">My <span class="gradient-text">Education</span></h2>
+      <div class="section-divider"></div>
+    </div>
     <div class="container">
-
-        <header>
-            <h1>Namya Shah</h1>
-            <p>Ahmedabad, Gujarat | dnamya87@email.com</p>
-            <p>
-                <a href="https://github.com/namya0504" target="_blank">GitHub</a> |
-                <a href="https://www.linkedin.com/in/namya-shah-b9346937a" target="_blank">LinkedIn</a>
+      <div class="timeline">
+        <!-- Timeline item 1 -->
+        <div class="timeline-item reveal slide-up">
+          <div class="timeline-dot">
+            <i class="fas fa-graduation-cap"></i>
+          </div>
+          <div class="timeline-card glass-card">
+            <div class="timeline-card-header">
+              <div>
+                <h3 class="timeline-degree">Diploma in Engineering</h3>
+                <p class="timeline-branch accent-green">Computer Engineering</p>
+              </div>
+              <span class="timeline-badge active-badge">Current</span>
+            </div>
+            <div class="timeline-meta">
+              <span><i class="fas fa-university"></i> Government Polytechnic College, Gujarat</span>
+              <span><i class="fas fa-calendar-alt"></i> Semester 4 — Currently Pursuing</span>
+            </div>
+            <p class="timeline-desc">
+              Focusing on core computer science fundamentals, programming languages, and modern software development practices. Actively participating in technical events and innovation projects like SSIP.
             </p>
-        </header>
-
-        <section>
-            <h2>Career Objective</h2>
-            <p>
-                Motivated Diploma Engineering student passionate about learning emerging technologies 
-                and applying them to solve real-world problems. Strong interest in Artificial Intelligence, 
-                software development, and innovation-driven projects. Seeking opportunities to enhance 
-                technical expertise and contribute to impactful solutions.
+            <div class="timeline-tags">
+              <span class="tag">Python</span>
+              <span class="tag">Java</span>
+              <span class="tag">Web Dev</span>
+              <span class="tag">AI/ML</span>
+              <span class="tag">Data Structures</span>
+            </div>
+          </div>
+        </div>
+        <!-- Timeline item 2 -->
+        <div class="timeline-item reveal slide-up delay-1">
+          <div class="timeline-dot">
+            <i class="fas fa-school"></i>
+          </div>
+          <div class="timeline-card glass-card">
+            <div class="timeline-card-header">
+              <div>
+                <h3 class="timeline-degree">Secondary School Education</h3>
+                <p class="timeline-branch accent-blue">10th Standard (SSC)</p>
+              </div>
+              <span class="timeline-badge completed-badge">Completed</span>
+            </div>
+            <div class="timeline-meta">
+              <span><i class="fas fa-map-marker-alt"></i> Gujarat Board, Ahmedabad</span>
+              <span><i class="fas fa-calendar-alt"></i> Completed</span>
+            </div>
+            <p class="timeline-desc">
+              Strong foundation in Mathematics, Science, and Computer fundamentals. Built the analytical and logical thinking skills that drive my engineering journey today.
             </p>
-        </section>
+            <div class="timeline-tags">
+              <span class="tag">Mathematics</span>
+              <span class="tag">Science</span>
+              <span class="tag">Computer Basics</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        <section>
-            <h2>Education</h2>
-            <p><strong>Diploma in Engineering (Semester 4)</strong></p>
-            <p>Government Polytechnic College, Gujarat</p>
-            <p>Currently Pursuing</p>
-        </section>
+  <!-- ============================================================
+       SKILLS SECTION
+  ============================================================ -->
+  <section id="skills" class="section section-alt">
+    <div class="section-header reveal">
+      <span class="section-tag fira">/* === SKILLS === */</span>
+      <h2 class="section-title">Technical <span class="gradient-text">Skills</span></h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="container skills-grid">
+      <!-- Skill Rings Left -->
+      <div class="skills-rings reveal slide-left">
+        <h3 class="skills-subtitle"><i class="fas fa-code"></i> Core Languages</h3>
+        <div class="rings-grid">
+          <div class="ring-item" data-percent="85">
+            <div class="ring-wrapper">
+              <svg class="ring-svg" viewBox="0 0 120 120">
+                <circle class="ring-bg" cx="60" cy="60" r="50"/>
+                <circle class="ring-fill" cx="60" cy="60" r="50" data-percent="85"/>
+              </svg>
+              <div class="ring-center">
+                <i class="fab fa-html5"></i>
+                <span class="ring-pct">85%</span>
+              </div>
+            </div>
+            <p class="ring-label">HTML/CSS</p>
+          </div>
+          <div class="ring-item" data-percent="75">
+            <div class="ring-wrapper">
+              <svg class="ring-svg" viewBox="0 0 120 120">
+                <circle class="ring-bg" cx="60" cy="60" r="50"/>
+                <circle class="ring-fill" cx="60" cy="60" r="50" data-percent="75"/>
+              </svg>
+              <div class="ring-center">
+                <i class="fab fa-python"></i>
+                <span class="ring-pct">75%</span>
+              </div>
+            </div>
+            <p class="ring-label">Python</p>
+          </div>
+          <div class="ring-item" data-percent="65">
+            <div class="ring-wrapper">
+              <svg class="ring-svg" viewBox="0 0 120 120">
+                <circle class="ring-bg" cx="60" cy="60" r="50"/>
+                <circle class="ring-fill" cx="60" cy="60" r="50" data-percent="65"/>
+              </svg>
+              <div class="ring-center">
+                <i class="fab fa-java"></i>
+                <span class="ring-pct">65%</span>
+              </div>
+            </div>
+            <p class="ring-label">Java</p>
+          </div>
+          <div class="ring-item" data-percent="60">
+            <div class="ring-wrapper">
+              <svg class="ring-svg" viewBox="0 0 120 120">
+                <circle class="ring-bg" cx="60" cy="60" r="50"/>
+                <circle class="ring-fill" cx="60" cy="60" r="50" data-percent="60"/>
+              </svg>
+              <div class="ring-center">
+                <i class="fab fa-js-square"></i>
+                <span class="ring-pct">60%</span>
+              </div>
+            </div>
+            <p class="ring-label">JavaScript</p>
+          </div>
+        </div>
+      </div>
 
-        <section>
-            <h2>Technical Skills</h2>
-            <ul>
-                <li><strong>Programming Languages:</strong> Python, Java, HTML, CSS, JavaScript (Basic)</li>
-                <li><strong>Tools & Platforms:</strong> Git, GitHub, VS Code, Cursor</li>
-            </ul>
-        </section>
+      <!-- Skill Bars Right -->
+      <div class="skills-bars reveal slide-right">
+        <h3 class="skills-subtitle"><i class="fas fa-tools"></i> Tools & Technologies</h3>
+        <div class="bar-skill">
+          <div class="bar-label">
+            <span><i class="fab fa-git-alt"></i> Git / GitHub</span>
+            <span class="bar-pct">80%</span>
+          </div>
+          <div class="skill-bar-track">
+            <div class="skill-bar-fill" data-width="80" style="--bar-color: var(--accent-green)"></div>
+          </div>
+        </div>
+        <div class="bar-skill">
+          <div class="bar-label">
+            <span><i class="fas fa-brain"></i> AI / ML</span>
+            <span class="bar-pct">70%</span>
+          </div>
+          <div class="skill-bar-track">
+            <div class="skill-bar-fill" data-width="70" style="--bar-color: var(--accent-blue)"></div>
+          </div>
+        </div>
+        <div class="bar-skill">
+          <div class="bar-label">
+            <span><i class="fas fa-cloud"></i> AWS SageMaker</span>
+            <span class="bar-pct">65%</span>
+          </div>
+          <div class="skill-bar-track">
+            <div class="skill-bar-fill" data-width="65" style="--bar-color: var(--accent-purple)"></div>
+          </div>
+        </div>
+        <div class="bar-skill">
+          <div class="bar-label">
+            <span><i class="fas fa-code"></i> VS Code / Cursor</span>
+            <span class="bar-pct">90%</span>
+          </div>
+          <div class="skill-bar-track">
+            <div class="skill-bar-fill" data-width="90" style="--bar-color: var(--accent-green)"></div>
+          </div>
+        </div>
+        <div class="bar-skill">
+          <div class="bar-label">
+            <span><i class="fas fa-robot"></i> NLP / Chatbots</span>
+            <span class="bar-pct">60%</span>
+          </div>
+          <div class="skill-bar-track">
+            <div class="skill-bar-fill" data-width="60" style="--bar-color: var(--accent-blue)"></div>
+          </div>
+        </div>
+        <div class="bar-skill">
+          <div class="bar-label">
+            <span><i class="fas fa-database"></i> Data Analysis</span>
+            <span class="bar-pct">68%</span>
+          </div>
+          <div class="skill-bar-track">
+            <div class="skill-bar-fill" data-width="68" style="--bar-color: var(--accent-purple)"></div>
+          </div>
+        </div>
 
-        <section>
-            <h2>Projects & Participation</h2>
-            <ul>
-                <li>Participated in SSIP (Student Startup and Innovation Policy) project in a team of 4.</li>
-                <li>Actively contributed to event decoration and management activities in college.</li>
-                <li>Exploring AI concepts using Amazon SageMaker JumpStart.</li>
-            </ul>
-        </section>
+        <h3 class="skills-subtitle mt-2"><i class="fas fa-star"></i> Soft Skills</h3>
+        <div class="soft-skills-tags">
+          <span class="soft-tag"><i class="fas fa-lightbulb"></i> Analytical Thinking</span>
+          <span class="soft-tag"><i class="fas fa-chess"></i> Critical Thinking</span>
+          <span class="soft-tag"><i class="fas fa-puzzle-piece"></i> Problem Solving</span>
+          <span class="soft-tag"><i class="fas fa-tasks"></i> Management Skills</span>
+          <span class="soft-tag"><i class="fas fa-microphone-alt"></i> Presentation Skills</span>
+          <span class="soft-tag"><i class="fas fa-hands-helping"></i> Teamwork</span>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        <section>
-            <h2>Achievements</h2>
-            <ul>
-                <li>Secured 1st Rank in "Find the Error" Technical Event.</li>
-                <li>Certificate link: <a href="#">View Certificate</a></li>
-            </ul>
-        </section>
+  <!-- ============================================================
+       PROJECTS SECTION
+  ============================================================ -->
+  <section id="projects" class="section">
+    <div class="section-header reveal">
+      <span class="section-tag fira">/* === PROJECTS === */</span>
+      <h2 class="section-title">My <span class="gradient-text">Projects</span></h2>
+      <div class="section-divider"></div>
+      <p class="section-subtitle">Things I've built that I'm proud of</p>
+    </div>
+    <div class="container projects-grid">
 
-        <section>
-            <h2>Certifications</h2>
-            <ul>
-                <li>Amazon SageMaker JumpStart Foundations – AWS Training & Certification</li>
-                <li>Customizing and Evaluating LLMs Using Amazon SageMaker JumpStart – AWS</li>
-                <li>JobReady: Employability Skills (Basic Level) – Wadhwani Foundation</li>
-            </ul>
-        </section>
+      <!-- Project 1 -->
+      <div class="project-card glass-card tilt-card reveal scale-in">
+        <div class="project-card-inner">
+          <div class="project-header">
+            <div class="project-icon" style="--icon-color: #00ff88;">
+              <i class="fas fa-globe"></i>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/namya0504" target="_blank" title="GitHub" aria-label="GitHub"><i class="fab fa-github"></i></a>
+              <a href="#" title="Live Demo" aria-label="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+            </div>
+          </div>
+          <h3 class="project-title">Portfolio Website</h3>
+          <p class="project-desc">A world-class, fully animated personal portfolio with dark hacker theme, particle backgrounds, typing effects, and glassmorphism design.</p>
+          <div class="project-tags">
+            <span class="p-tag">HTML</span>
+            <span class="p-tag">CSS</span>
+            <span class="p-tag">JavaScript</span>
+            <span class="p-tag">Canvas API</span>
+          </div>
+        </div>
+        <div class="project-glow" style="--glow-color: #00ff8830;"></div>
+      </div>
 
-        <section>
-            <h2>Soft Skills</h2>
-            <ul>
-                <li>Analytical Thinking</li>
-                <li>Critical Thinking</li>
-                <li>Problem Solving</li>
-                <li>Management Skills</li>
-                <li>Presentation Skills</li>
-                <li>Teamwork & Collaboration</li>
-            </ul>
-        </section>
+      <!-- Project 2 -->
+      <div class="project-card glass-card tilt-card reveal scale-in delay-1">
+        <div class="project-card-inner">
+          <div class="project-header">
+            <div class="project-icon" style="--icon-color: #3b82f6;">
+              <i class="fas fa-rocket"></i>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/namya0504" target="_blank" title="GitHub" aria-label="GitHub"><i class="fab fa-github"></i></a>
+              <a href="#" title="Live Demo" aria-label="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+            </div>
+          </div>
+          <h3 class="project-title">SSIP Innovation Project</h3>
+          <p class="project-desc">Team innovation project under the Student Startup and Innovation Policy (SSIP) initiative. Built an AI-powered solution to address a real-world social problem.</p>
+          <div class="project-tags">
+            <span class="p-tag">Python</span>
+            <span class="p-tag">AI</span>
+            <span class="p-tag">Innovation</span>
+            <span class="p-tag">Team Project</span>
+          </div>
+        </div>
+        <div class="project-glow" style="--glow-color: #3b82f630;"></div>
+      </div>
 
-        <footer>
-            <p>© 2026 Namya Shah | Built with HTML & CSS</p>
-        </footer>
+      <!-- Project 3 -->
+      <div class="project-card glass-card tilt-card reveal scale-in delay-2">
+        <div class="project-card-inner">
+          <div class="project-header">
+            <div class="project-icon" style="--icon-color: #8b5cf6;">
+              <i class="fas fa-robot"></i>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/namya0504" target="_blank" title="GitHub" aria-label="GitHub"><i class="fab fa-github"></i></a>
+              <a href="#" title="Live Demo" aria-label="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+            </div>
+          </div>
+          <h3 class="project-title">AI Chatbot</h3>
+          <p class="project-desc">An intelligent conversational AI chatbot built with Python and NLP techniques. Understands user intent, handles multi-turn conversations, and provides relevant responses.</p>
+          <div class="project-tags">
+            <span class="p-tag">Python</span>
+            <span class="p-tag">NLP</span>
+            <span class="p-tag">NLTK</span>
+            <span class="p-tag">AI</span>
+          </div>
+        </div>
+        <div class="project-glow" style="--glow-color: #8b5cf630;"></div>
+      </div>
+
+      <!-- Project 4 -->
+      <div class="project-card glass-card tilt-card reveal scale-in delay-1">
+        <div class="project-card-inner">
+          <div class="project-header">
+            <div class="project-icon" style="--icon-color: #f59e0b;">
+              <i class="fas fa-chart-bar"></i>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/namya0504" target="_blank" title="GitHub" aria-label="GitHub"><i class="fab fa-github"></i></a>
+              <a href="#" title="Live Demo" aria-label="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+            </div>
+          </div>
+          <h3 class="project-title">Data Analysis Dashboard</h3>
+          <p class="project-desc">Interactive data analysis and visualization dashboard built with Python and Pandas. Processes datasets to generate meaningful insights with charts and summary statistics.</p>
+          <div class="project-tags">
+            <span class="p-tag">Python</span>
+            <span class="p-tag">Pandas</span>
+            <span class="p-tag">Matplotlib</span>
+            <span class="p-tag">Data Science</span>
+          </div>
+        </div>
+        <div class="project-glow" style="--glow-color: #f59e0b30;"></div>
+      </div>
+
+      <!-- Project 5 -->
+      <div class="project-card glass-card tilt-card reveal scale-in delay-2">
+        <div class="project-card-inner">
+          <div class="project-header">
+            <div class="project-icon" style="--icon-color: #ef4444;">
+              <i class="fas fa-users-cog"></i>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/namya0504" target="_blank" title="GitHub" aria-label="GitHub"><i class="fab fa-github"></i></a>
+              <a href="#" title="Live Demo" aria-label="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+            </div>
+          </div>
+          <h3 class="project-title">Student Management System</h3>
+          <p class="project-desc">A comprehensive Java-based desktop application for managing student records, grades, attendance, and reports with a clean GUI built using Java Swing.</p>
+          <div class="project-tags">
+            <span class="p-tag">Java</span>
+            <span class="p-tag">Swing</span>
+            <span class="p-tag">OOP</span>
+            <span class="p-tag">CRUD</span>
+          </div>
+        </div>
+        <div class="project-glow" style="--glow-color: #ef444430;"></div>
+      </div>
+
+      <!-- Project 6 -->
+      <div class="project-card glass-card tilt-card reveal scale-in delay-3">
+        <div class="project-card-inner">
+          <div class="project-header">
+            <div class="project-icon" style="--icon-color: #06b6d4;">
+              <i class="fas fa-brain"></i>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/namya0504" target="_blank" title="GitHub" aria-label="GitHub"><i class="fab fa-github"></i></a>
+              <a href="#" title="Live Demo" aria-label="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+            </div>
+          </div>
+          <h3 class="project-title">Amazon SageMaker ML Model</h3>
+          <p class="project-desc">Machine learning model developed and deployed on Amazon SageMaker using JumpStart. Implemented model training, evaluation, and customization on AWS cloud infrastructure.</p>
+          <div class="project-tags">
+            <span class="p-tag">Python</span>
+            <span class="p-tag">AWS</span>
+            <span class="p-tag">SageMaker</span>
+            <span class="p-tag">ML</span>
+          </div>
+        </div>
+        <div class="project-glow" style="--glow-color: #06b6d430;"></div>
+      </div>
 
     </div>
+  </section>
 
+  <!-- ============================================================
+       ACHIEVEMENTS SECTION
+  ============================================================ -->
+  <section id="achievements" class="section section-alt">
+    <div class="section-header reveal">
+      <span class="section-tag fira">/* === ACHIEVEMENTS === */</span>
+      <h2 class="section-title">My <span class="gradient-text">Achievements</span></h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="container achievements-layout">
+
+      <!-- Counter Row -->
+      <div class="counters-row reveal scale-in">
+        <div class="counter-card glass-card">
+          <i class="fas fa-trophy accent-green counter-icon"></i>
+          <span class="counter-num" data-target="1">0</span>
+          <span class="counter-suffix accent-green">st</span>
+          <p class="counter-label">Technical Rank</p>
+        </div>
+        <div class="counter-card glass-card">
+          <i class="fas fa-certificate accent-blue counter-icon"></i>
+          <span class="counter-num" data-target="3">0</span>
+          <p class="counter-label">Certifications</p>
+        </div>
+        <div class="counter-card glass-card">
+          <i class="fas fa-project-diagram accent-purple counter-icon"></i>
+          <span class="counter-num" data-target="6">0</span>
+          <p class="counter-label">Projects Built</p>
+        </div>
+        <div class="counter-card glass-card">
+          <i class="fas fa-code accent-green counter-icon"></i>
+          <span class="counter-num" data-target="4">0</span>
+          <p class="counter-label">Tech Events</p>
+        </div>
+      </div>
+
+      <!-- Achievement Cards -->
+      <div class="achievement-cards">
+        <div class="ach-card glass-card reveal slide-left">
+          <div class="ach-icon-wrap" style="--ach-color: #ffd700;">
+            <i class="fas fa-trophy"></i>
+          </div>
+          <div class="ach-content">
+            <h3>1st Rank – "Find the Error" Technical Event</h3>
+            <p>Secured First Place in a college-level technical event requiring deep debugging skills, error identification, and rapid code analysis under time pressure.</p>
+            <div class="ach-meta">
+              <span class="ach-tag"><i class="fas fa-code"></i> Debugging</span>
+              <span class="ach-tag"><i class="fas fa-university"></i> College Event</span>
+              <span class="ach-tag gold-tag"><i class="fas fa-medal"></i> 1st Place</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="ach-card glass-card reveal slide-right">
+          <div class="ach-icon-wrap" style="--ach-color: #3b82f6;">
+            <i class="fas fa-rocket"></i>
+          </div>
+          <div class="ach-content">
+            <h3>SSIP Innovation Participation</h3>
+            <p>Selected to participate in the prestigious Student Startup and Innovation Policy (SSIP) program as part of a 4-member team, presenting an AI-driven innovation to a panel of evaluators.</p>
+            <div class="ach-meta">
+              <span class="ach-tag"><i class="fas fa-users"></i> Team of 4</span>
+              <span class="ach-tag"><i class="fas fa-brain"></i> AI Project</span>
+              <span class="ach-tag"><i class="fab fa-python"></i> Python</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="ach-card glass-card reveal slide-left">
+          <div class="ach-icon-wrap" style="--ach-color: #00ff88;">
+            <i class="fas fa-cloud"></i>
+          </div>
+          <div class="ach-content">
+            <h3>AWS Cloud & AI Certification Achiever</h3>
+            <p>Successfully completed multiple AWS certification courses on Amazon SageMaker JumpStart, demonstrating proficiency in cloud-based machine learning and LLM customization.</p>
+            <div class="ach-meta">
+              <span class="ach-tag"><i class="fab fa-aws"></i> AWS</span>
+              <span class="ach-tag"><i class="fas fa-brain"></i> ML/LLM</span>
+              <span class="ach-tag"><i class="fas fa-certificate"></i> Certified</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CERTIFICATES SECTION
+  ============================================================ -->
+  <section id="certificates" class="section">
+    <div class="section-header reveal">
+      <span class="section-tag fira">/* === CERTIFICATES === */</span>
+      <h2 class="section-title">My <span class="gradient-text">Certifications</span></h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="container certs-grid">
+
+      <div class="cert-card glass-card reveal scale-in">
+        <div class="cert-ribbon"></div>
+        <div class="cert-body">
+          <div class="cert-logo aws-logo">
+            <i class="fab fa-aws fa-2x"></i>
+            <span>AWS</span>
+          </div>
+          <div class="cert-info">
+            <h3>Amazon SageMaker JumpStart Foundations</h3>
+            <p class="cert-issuer"><i class="fas fa-building"></i> AWS Training &amp; Certification</p>
+            <p class="cert-date"><i class="fas fa-calendar-check"></i> 2024</p>
+          </div>
+        </div>
+        <div class="cert-footer">
+          <span class="cert-badge verified"><i class="fas fa-check-circle"></i> Verified</span>
+          <span class="cert-skill-tag">Cloud ML</span>
+          <span class="cert-skill-tag">SageMaker</span>
+        </div>
+      </div>
+
+      <div class="cert-card glass-card reveal scale-in delay-1">
+        <div class="cert-ribbon"></div>
+        <div class="cert-body">
+          <div class="cert-logo aws-logo">
+            <i class="fab fa-aws fa-2x"></i>
+            <span>AWS</span>
+          </div>
+          <div class="cert-info">
+            <h3>Customizing &amp; Evaluating LLMs Using SageMaker JumpStart</h3>
+            <p class="cert-issuer"><i class="fas fa-building"></i> AWS Training &amp; Certification</p>
+            <p class="cert-date"><i class="fas fa-calendar-check"></i> 2024</p>
+          </div>
+        </div>
+        <div class="cert-footer">
+          <span class="cert-badge verified"><i class="fas fa-check-circle"></i> Verified</span>
+          <span class="cert-skill-tag">LLMs</span>
+          <span class="cert-skill-tag">Fine-tuning</span>
+        </div>
+      </div>
+
+      <div class="cert-card glass-card reveal scale-in delay-2">
+        <div class="cert-ribbon"></div>
+        <div class="cert-body">
+          <div class="cert-logo wf-logo">
+            <i class="fas fa-briefcase fa-2x"></i>
+            <span>WF</span>
+          </div>
+          <div class="cert-info">
+            <h3>JobReady: Employability Skills (Basic Level)</h3>
+            <p class="cert-issuer"><i class="fas fa-building"></i> Wadhwani Foundation</p>
+            <p class="cert-date"><i class="fas fa-calendar-check"></i> 2024</p>
+          </div>
+        </div>
+        <div class="cert-footer">
+          <span class="cert-badge verified"><i class="fas fa-check-circle"></i> Verified</span>
+          <span class="cert-skill-tag">Employability</span>
+          <span class="cert-skill-tag">Soft Skills</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CONTACT SECTION
+  ============================================================ -->
+  <section id="contact" class="section section-alt">
+    <div class="section-header reveal">
+      <span class="section-tag fira">/* === CONTACT & FEEDBACK === */</span>
+      <h2 class="section-title">Get In <span class="gradient-text">Touch</span></h2>
+      <div class="section-divider"></div>
+      <p class="section-subtitle">Have a project, question, or just want to say hi? I'd love to hear from you!</p>
+    </div>
+    <div class="container contact-layout">
+
+      <!-- Left: Contact Info -->
+      <div class="contact-info reveal slide-left">
+        <h3 class="contact-heading">Let's Connect</h3>
+        <p class="contact-subtext">I'm currently open to new opportunities, collaborations, and interesting conversations. Feel free to reach out!</p>
+
+        <div class="contact-links">
+          <a href="mailto:dnamya87@email.com" class="contact-link-item">
+            <div class="contact-link-icon" style="--lc: var(--accent-green)"><i class="fas fa-envelope"></i></div>
+            <div>
+              <span class="cl-label">Email</span>
+              <span class="cl-value">dnamya87@email.com</span>
+            </div>
+          </a>
+          <a href="https://github.com/namya0504" target="_blank" class="contact-link-item">
+            <div class="contact-link-icon" style="--lc: var(--accent-purple)"><i class="fab fa-github"></i></div>
+            <div>
+              <span class="cl-label">GitHub</span>
+              <span class="cl-value">github.com/namya0504</span>
+            </div>
+          </a>
+          <a href="https://www.linkedin.com/in/namya-shah-b9346937a" target="_blank" class="contact-link-item">
+            <div class="contact-link-icon" style="--lc: var(--accent-blue)"><i class="fab fa-linkedin-in"></i></div>
+            <div>
+              <span class="cl-label">LinkedIn</span>
+              <span class="cl-value">namya-shah-b9346937a</span>
+            </div>
+          </a>
+          <div class="contact-link-item">
+            <div class="contact-link-icon" style="--lc: #f59e0b"><i class="fas fa-map-marker-alt"></i></div>
+            <div>
+              <span class="cl-label">Location</span>
+              <span class="cl-value">Ahmedabad, Gujarat, India</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="availability-badge">
+          <span class="avail-dot"></span>
+          Available for internships &amp; collaborations
+        </div>
+      </div>
+
+      <!-- Right: Feedback Form -->
+      <div class="contact-form-wrap reveal slide-right">
+        <div class="form-card glass-card">
+          <h3 class="form-title"><i class="fas fa-comment-dots accent-green"></i> Send a Message</h3>
+          <form id="contact-form" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="fname">Your Name</label>
+                <div class="input-wrap">
+                  <i class="fas fa-user"></i>
+                  <input type="text" id="fname" name="fname" placeholder="John Doe" required autocomplete="name" />
+                </div>
+                <span class="form-error" id="fname-error"></span>
+              </div>
+              <div class="form-group">
+                <label for="femail">Email Address</label>
+                <div class="input-wrap">
+                  <i class="fas fa-envelope"></i>
+                  <input type="email" id="femail" name="femail" placeholder="john@example.com" required autocomplete="email" />
+                </div>
+                <span class="form-error" id="femail-error"></span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="fmessage">Message</label>
+              <div class="input-wrap textarea-wrap">
+                <i class="fas fa-pen"></i>
+                <textarea id="fmessage" name="fmessage" rows="4" placeholder="Tell me about your project or say hello..." required></textarea>
+              </div>
+              <span class="form-error" id="fmessage-error"></span>
+            </div>
+            <div class="form-group">
+              <label>How would you rate this portfolio? <span class="accent-green">★</span></label>
+              <div class="star-rating" id="star-rating" role="group" aria-label="Portfolio rating">
+                <input type="radio" name="rating" id="star5" value="5" /><label for="star5" title="5 stars"><i class="fas fa-star"></i></label>
+                <input type="radio" name="rating" id="star4" value="4" /><label for="star4" title="4 stars"><i class="fas fa-star"></i></label>
+                <input type="radio" name="rating" id="star3" value="3" /><label for="star3" title="3 stars"><i class="fas fa-star"></i></label>
+                <input type="radio" name="rating" id="star2" value="2" /><label for="star2" title="2 stars"><i class="fas fa-star"></i></label>
+                <input type="radio" name="rating" id="star1" value="1" /><label for="star1" title="1 star"><i class="fas fa-star"></i></label>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-submit" id="submit-btn">
+              <span class="btn-text"><i class="fas fa-paper-plane"></i> Send Message</span>
+              <span class="btn-loading" style="display:none"><i class="fas fa-spinner fa-spin"></i> Sending...</span>
+            </button>
+          </form>
+          <!-- Thank You Message -->
+          <div class="thank-you-msg" id="thank-you" style="display:none">
+            <div class="ty-animation">
+              <i class="fas fa-check-circle ty-icon"></i>
+            </div>
+            <h3>Message Sent! 🎉</h3>
+            <p>Thank you for reaching out! I'll get back to you as soon as possible.</p>
+            <button class="btn btn-secondary btn-sm" id="reset-form">Send Another</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer id="footer">
+    <div class="footer-top">
+      <div class="footer-logo">
+        <span class="logo-bracket">&lt;</span>NS<span class="logo-bracket">/&gt;</span>
+      </div>
+      <p class="footer-tagline fira">// Building the future, one commit at a time</p>
+      <div class="footer-socials">
+        <a href="https://github.com/namya0504" target="_blank" aria-label="GitHub" class="social-btn">
+          <i class="fab fa-github"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/namya-shah-b9346937a" target="_blank" aria-label="LinkedIn" class="social-btn">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+        <a href="mailto:dnamya87@email.com" aria-label="Email" class="social-btn">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </div>
+    </div>
+    <div class="footer-nav">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#education">Education</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#certificates">Certificates</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="footer-bottom">
+      <p>© <span id="year"></span> <span class="accent-green">Namya Shah</span>. Crafted with <span class="accent-green">♥</span> &amp; lots of <span class="fira accent-blue">{'</span><span class="fira accent-green">code</span><span class="fira accent-blue">'}</span></p>
+    </div>
+  </footer>
+
+  <!-- Back to Top -->
+  <button id="back-to-top" aria-label="Back to top" title="Back to top">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <!-- Main Script -->
+  <script src="script.js"></script>
 </body>
 </html>
